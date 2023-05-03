@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="card">
+            <h1 :style="{
+                color: inputValue.length < 5 ? 'green' : 'red'
+            }"> {{ title }}</h1>
+            <div class="form-control">
+                <input 
+                    type="text" 
+                    :placeholder="placeholderString" 
+                    v-model="inputValue"
+                    @keypress.enter="addHandler"
+                />
+            </div>
+            <h2>Input: {{ inputValue }}</h2>
+            <button class="btn" @click="addHandler">Add</button>
+            <hr />
+            <ul class="list" v-if="notes.length !== 0">
+                <li class="list-item" v-for="(myNote, index) in notes">
+                    <span :class="{
+                        'primary': true,
+                        'bold': myNote.length > 5
+                    }">{{ index + 1 }} {{ toUpperCase(myNote) }}</span>
+                    <button class="btn danger" @click="removeNote(index)">x</button>
+                </li>
+                <hr>
+                <li>
+                    <strong>Amount of tasks: {{ notes.length }}</strong>
+                    <br>
+                    <strong>Double: {{ doubleCountComputed }}</strong>
+                </li>
+            </ul>
+            <div v-else="notes.length === 0">
+                You don`t have any notes, add please first one
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
